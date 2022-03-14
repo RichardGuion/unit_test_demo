@@ -5,14 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 // Class for calling the RestCountries web services to locate a capital
-public class CapitalLookup extends RestCountriesWebService {
+public class CapitalLookupService extends RestCountriesWebService {
 
-    private CapitalLookup() {
+    private CapitalLookupService() {
     }
 
     // Singleton pattern
-    private static CapitalLookup instance = new CapitalLookup();
-    public static CapitalLookup getCapitalLookup() {
+    private static final CapitalLookupService instance = new CapitalLookupService();
+    public static CapitalLookupService getCapitalLookup() {
         return instance;
     }
 
@@ -40,7 +40,7 @@ public class CapitalLookup extends RestCountriesWebService {
     // Example: MX returns Mexico City
     public String findCapitalByPartialName(String countryName) throws JsonProcessingException {
         String urlForPartialName = getUrlForPartialName(countryName);
-        System.out.println(String.format("findCapitalByPartialName(%s), calling: %s", countryName, urlForPartialName));
+        System.out.printf("findCapitalByPartialName, requesting: %s%n", urlForPartialName);
 
         return getCapitalRestResponse(urlForPartialName);
     }
@@ -49,7 +49,7 @@ public class CapitalLookup extends RestCountriesWebService {
     // Example: "United States" returns Washington, D.C.
     public String findCapitalByFullName(String countryName) throws JsonProcessingException {
         String urlForFullName = getUrlForFullName(countryName);
-        System.out.println(String.format("findCapitalByFullName(%s), calling: %s", countryName, urlForFullName));
+        System.out.printf("findCapitalByFullName, requesting: %s%n", urlForFullName);
 
         return getCapitalRestResponse(urlForFullName);
     }

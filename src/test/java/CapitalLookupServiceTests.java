@@ -6,7 +6,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CapitalLookupTests {
+class CapitalLookupServiceTests {
 
     @ParameterizedTest
     @DisplayName("Positive test cases for findCapitalByPartialName")
@@ -21,10 +21,10 @@ class CapitalLookupTests {
     void findCapitalByPartialName(String countryName, String expectedResult) {
         TestLogger.getTestLogger().logTestOperation(String.format("findCapitalByName(%s)", countryName));
         try {
-            assertEquals(expectedResult, CapitalLookup.getCapitalLookup().findCapitalByPartialName(countryName));
+            assertEquals(expectedResult, CapitalLookupService.getCapitalLookup().findCapitalByPartialName(countryName));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            fail(String.format("Error while calling %s", CapitalLookup.getCapitalLookup().getUrlForPartialName(countryName)));
+            fail(String.format("Error while calling %s", CapitalLookupService.getCapitalLookup().getUrlForPartialName(countryName)));
         }
     }
 
@@ -40,8 +40,9 @@ class CapitalLookupTests {
     // the short country code.
     // The API does have a lot of inconsistencies.
     void findCapitalPartialNameHttpExceptions(String countryName) {
+       TestLogger.getTestLogger().logTestOperation(String.format("findCapitalPartialNameHttpExceptions(%s)", countryName));
        assertThrows(HttpClientErrorException.class, () -> {
-           CapitalLookup.getCapitalLookup().findCapitalByPartialName(countryName);
+           CapitalLookupService.getCapitalLookup().findCapitalByPartialName(countryName);
        });
     }
 
@@ -56,10 +57,10 @@ class CapitalLookupTests {
     void findCapitalByFullName(String countryName, String expectedResult) {
         TestLogger.getTestLogger().logTestOperation(String.format("findCapitalByFullName(%s)", countryName));
         try {
-            assertEquals(expectedResult, CapitalLookup.getCapitalLookup().findCapitalByFullName(countryName));
+            assertEquals(expectedResult, CapitalLookupService.getCapitalLookup().findCapitalByFullName(countryName));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            fail(String.format("Error while calling %s", CapitalLookup.getCapitalLookup().getUrlForFullName(countryName)));
+            fail(String.format("Error while calling %s", CapitalLookupService.getCapitalLookup().getUrlForFullName(countryName)));
         }
     }
 
@@ -68,8 +69,9 @@ class CapitalLookupTests {
     // CSV Source is very useful - can even have this in an external file, to make it easier to modify test data sets
     @CsvSource({"middle earth", "hogwarts", "arrakis", "Shangri-La", "1111", "*", "El Dorado", "Gotham City"})
     void findCapitalFullNameHttpExceptions(String countryName) {
+        TestLogger.getTestLogger().logTestOperation(String.format("findCapitalFullNameHttpExceptions(%s)", countryName));
         assertThrows(HttpClientErrorException.class, () -> {
-            CapitalLookup.getCapitalLookup().findCapitalByFullName(countryName);
+            CapitalLookupService.getCapitalLookup().findCapitalByFullName(countryName);
         });
     }
 }

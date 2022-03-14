@@ -4,7 +4,7 @@
 public class TestLogger {
 
     // Our single instance of TestLogger
-    private static TestLogger instance = new TestLogger();
+    private static final TestLogger instance = new TestLogger();
 
     private TestLogger() {
     }
@@ -14,6 +14,6 @@ public class TestLogger {
     }
 
     public void logTestOperation(String testOperation) {
-        System.out.println(String.format(testOperation));
+        System.out.println("Test Operation: " + testOperation);
     }
 }

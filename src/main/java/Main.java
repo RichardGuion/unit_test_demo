@@ -30,10 +30,10 @@ public class Main {
 
             if (!countryName.isEmpty()) {
                 try {
-                    String countryCapital = CapitalLookup.getCapitalLookup().findCapitalByPartialName(countryName);
-                    System.out.println(String.format("The capital of %s is %s", countryName, countryCapital));
+                    String countryCapital = CapitalLookupService.getCapitalLookup().findCapitalByPartialName(countryName);
+                    System.out.printf("The capital of %s is %s%n", countryName, countryCapital);
                 } catch (JsonProcessingException | HttpClientErrorException ex) {
-                    System.out.println(String.format("No capital found for country: %s", countryName));
+                    System.out.printf("No capital found for country: %s%n", countryName);
                 }
             }
         } while (!countryName.isEmpty());
